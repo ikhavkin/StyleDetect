@@ -714,6 +714,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NameInfoHighlighting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StylePointsDaemonStage.cs" />
     <Compile Include="StylePointsDaemonStageProcess.cs" />
