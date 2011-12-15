@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Codevolve.StyleDetect</RootNamespace>
-    <AssemblyName>StyleDetect</AssemblyName>
+    <AssemblyName>Codevolve.StyleDetect</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

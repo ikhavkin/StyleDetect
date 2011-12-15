@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using JetBrains.ReSharper.Daemon;
 using JetBrains.ReSharper.Psi;
+using JetBrains.ReSharper.Psi.CSharp;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
 using JetBrains.ReSharper.Psi.Tree;
 
@@ -35,12 +36,13 @@ namespace Codevolve.StyleDetect
                 return;
             }
 
-            var sourceFile = DaemonProcess.SourceFile as ICSharpFile;
+            PsiManager manager = PsiManager.GetInstance(DaemonProcess.Solution);
+            var sourceFile = manager.GetPsiFile(DaemonProcess.SourceFile, CSharpLanguage.Instance) as ICSharpFile;
             if (sourceFile != null)
             {
                 var highlights = new List<HighlightingInfo>();
 
-                var processor = new RecursiveElementProcessor<IMethodDeclaration>(declaration =>
+                var processor = new RecursiveElementProcessor<IFieldDeclaration>(declaration =>
                 {
                     var docRange = declaration.GetNameDocumentRange();
 

@@ -1,20 +1,21 @@
 using JetBrains.ReSharper.Daemon;
-using JetBrains.ReSharper.Psi.CSharp.Tree;
+using JetBrains.ReSharper.Psi.Tree;
 
 namespace Codevolve.StyleDetect
 {
     /// <summary>
     /// Highlighting to show name of declared item.
     /// </summary>
+    [StaticSeverityHighlighting(Severity.HINT, "CSharpInfo")]
     public class NameInfoHighlighting : IHighlighting
     {
-        private readonly IMethodDeclaration declaration;
+        private readonly IDeclaration declaration;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="NameInfoHighlighting"/> class.
         /// </summary>
         /// <param name="declaration">The declaration.</param>
-        public NameInfoHighlighting(IMethodDeclaration declaration)
+        public NameInfoHighlighting(IDeclaration declaration)
         {
             this.declaration = declaration;
         }

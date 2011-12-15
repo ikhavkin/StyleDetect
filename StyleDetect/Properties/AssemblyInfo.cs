@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using JetBrains.Application.PluginSupport;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
@@ -34,3 +35,8 @@ using System.Runtime.InteropServices;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
+
+// ReSharper plugin attributes
+[assembly: PluginTitle("StyleDetect")]
+[assembly: PluginVendor("Igor Khavkin (ikhavkin@gmail.com)")]
+[assembly: PluginDescription("Analyses style of existing code and changes setting accordingly.")]
