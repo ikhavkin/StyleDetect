@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using JetBrains.DocumentModel;
 using JetBrains.ReSharper.Daemon;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp;
@@ -22,6 +23,8 @@ namespace Codevolve.StyleDetect
             DaemonProcess = process;
         }
 
+        #region IDaemonStageProcess Members
+
         /// <summary>
         /// Executes the process.
         /// The process should check for <see cref="P:JetBrains.ReSharper.Daemon.IDaemonProcess.InterruptFlag"/> periodically (with intervals less than 100 ms)
@@ -42,14 +45,25 @@ namespace Codevolve.StyleDetect
             {
                 var highlights = new List<HighlightingInfo>();
 
-                var processor = new RecursiveElementProcessor<IFieldDeclaration>(declaration =>
-                {
-                    var docRange = declaration.GetNameDocumentRange();
+                // highlight field declarations
+                var processor = new RecursiveElementProcessor<IFieldDeclaration>(
+                    declaration =>
+                        {
+                            DocumentRange docRange = declaration.GetNameDocumentRange();
 
-                    highlights.Add(new HighlightingInfo(docRange, new NameInfoHighlighting(declaration)));
-                });
-
+                            highlights.Add(new HighlightingInfo(docRange, new NameInfoHighlighting(declaration)));
+                        });
                 sourceFile.ProcessDescendants(processor);
+
+                // highlight local var declarations
+                var localVarsProcessor = new RecursiveElementProcessor<ILocalVariableDeclaration>(
+                    declaration =>
+                        {
+                            DocumentRange docRange = declaration.GetNameDocumentRange();
+
+                            highlights.Add(new HighlightingInfo(docRange, new NameInfoHighlighting(declaration)));
+                        });
+                sourceFile.ProcessDescendants(localVarsProcessor);
 
                 commiter(new DaemonStageResult(highlights));
             }
@@ -59,5 +73,7 @@ namespace Codevolve.StyleDetect
         /// Whole daemon process
         /// </summary>
         public IDaemonProcess DaemonProcess { get; private set; }
+
+        #endregion
     }
 }
