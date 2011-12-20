@@ -1,7 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StyleDetect", "StyleDetect\StyleDetect.csproj", "{E01C7F13-DC62-4875-9CCE-6FEF81A49563}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StyleDetect", "StyleDetect\StyleDetect.csproj", "{5C01054F-2D89-4D2C-BFA7-CB0B3978E199}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StyleDetect.Tests", "StyleDetect.Tests\StyleDetect.Tests.csproj", "{904E17EB-2809-471C-885D-C47D9BF800A5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +11,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E01C7F13-DC62-4875-9CCE-6FEF81A49563}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E01C7F13-DC62-4875-9CCE-6FEF81A49563}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E01C7F13-DC62-4875-9CCE-6FEF81A49563}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E01C7F13-DC62-4875-9CCE-6FEF81A49563}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C01054F-2D89-4D2C-BFA7-CB0B3978E199}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C01054F-2D89-4D2C-BFA7-CB0B3978E199}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C01054F-2D89-4D2C-BFA7-CB0B3978E199}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C01054F-2D89-4D2C-BFA7-CB0B3978E199}.Release|Any CPU.Build.0 = Release|Any CPU
+		{904E17EB-2809-471C-885D-C47D9BF800A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{904E17EB-2809-471C-885D-C47D9BF800A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{904E17EB-2809-471C-885D-C47D9BF800A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{904E17EB-2809-471C-885D-C47D9BF800A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

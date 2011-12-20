@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<actions>
+  <insert group-id="ReSharper" position="last">
+    <action-group id="Codevolve.StyleDetect" text="StyleDetect">
+      <action id="Codevolve.StyleDetect.About" text="About StyleDetect"/>
+      <!-- to break up elements use <separator/> -->
+    </action-group>
+  </insert>
+</actions>

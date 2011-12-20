@@ -1,42 +1,25 @@
-﻿using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
+using System.Reflection;
+using JetBrains.ActionManagement;
 using JetBrains.Application.PluginSupport;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("StyleDetect")]
+[assembly: AssemblyTitle("Codevolve.StyleDetect")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("StyleDetect")]
-[assembly: AssemblyCopyright("Copyright ©  2011")]
+[assembly: AssemblyCompany("Codevolve")]
+[assembly: AssemblyProduct("Codevolve.StyleDetect")]
+[assembly: AssemblyCopyright("MIT License")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
-// Setting ComVisible to false makes the types in this assembly not visible 
-// to COM components.  If you need to access a type in this assembly from 
-// COM, set the ComVisible attribute to true on that type.
-[assembly: ComVisible(false)]
+[assembly: AssemblyVersion("0.1.0.0")]
+[assembly: AssemblyFileVersion("0.1.0.0")]
 
-// The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("633e16fc-58bf-4fe5-b639-487e009382c2")]
+[assembly: ActionsXml("Codevolve.StyleDetect.Actions.xml")]
 
-// Version information for an assembly consists of the following four values:
-//
-//      Major Version
-//      Minor Version 
-//      Build Number
-//      Revision
-//
-// You can specify all the values or you can default the Build and Revision Numbers 
-// by using the '*' as shown below:
-// [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
-
-// ReSharper plugin attributes
+// The following information is displayed by ReSharper in the Plugins dialog
 [assembly: PluginTitle("StyleDetect")]
-[assembly: PluginVendor("Igor Khavkin (ikhavkin@gmail.com)")]
-[assembly: PluginDescription("Analyses style of existing code and changes setting accordingly.")]
+[assembly: PluginDescription("Automatically infer style settings for R# based on existing C# source code.")]
+[assembly: PluginVendor("Codevolve")]

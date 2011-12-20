@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{5C01054F-2D89-4D2C-BFA7-CB0B3978E199}</ProjectGuid>
+    <ProjectGuid>{904E17EB-2809-471C-885D-C47D9BF800A5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Codevolve.StyleDetect</RootNamespace>
-    <AssemblyName>Codevolve.StyleDetect</AssemblyName>
+    <RootNamespace>Codevolve.StyleDetect.Tests</RootNamespace>
+    <AssemblyName>Codevolve.StyleDetect.Tests</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -44,19 +44,22 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NameInfoHighlighting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="AboutAction.cs" />
-    <Compile Include="ReverseStringAction.cs" />
-    <Compile Include="StylePointsDaemonStage.cs" />
-    <Compile Include="StylePointsDaemonStageProcess.cs" />
+    <Compile Include="ReverseStringAvailabilityTests.cs" />
+    <Compile Include="ReverseStringExecuteTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Actions.xml" />
+    <ProjectReference Include="..\StyleDetect\StyleDetect.csproj">
+      <Project>{5c01054f-2d89-4d2c-bfa7-cb0b3978e199}</Project>
+      <Name>StyleDetect</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ReadMe.txt" />
   </ItemGroup>
   <PropertyGroup>
     <ReSharperSdkTargets Condition=" '$(ReSharperSdkTargets)' == '' ">$(MSBuildExtensionsPath)\JetBrains\ReSharper.SDK\v6.1</ReSharperSdkTargets>
   </PropertyGroup>
-  <Import Project="$(ReSharperSdkTargets)\Plugin.Targets" />
+  <Import Project="$(ReSharperSdkTargets)\Plugin.Tests.Targets" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
