@@ -12,3 +12,6 @@
 *[Dd]ot[Cc]over
 *SolutionBuild*.user
 _ReSharper.*/
+
+# NuGet
+packages/
