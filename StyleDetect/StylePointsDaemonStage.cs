@@ -27,7 +27,7 @@ namespace Codevolve.StyleDetect
         /// </summary>
         public ErrorStripeRequest NeedsErrorStripe(IPsiSourceFile sourceFile, IContextBoundSettingsStore settingsStore)
         {
-            return ErrorStripeRequest.STRIPE_AND_ERRORS;
+            return ErrorStripeRequest.NONE;
         }
     }
 }

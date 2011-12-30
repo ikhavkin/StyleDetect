@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using JetBrains.DocumentModel;
 using JetBrains.ReSharper.Daemon;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
+using JetBrains.ReSharper.Psi.Naming.Interfaces;
 using JetBrains.ReSharper.Psi.Tree;
 
 namespace Codevolve.StyleDetect
@@ -43,6 +45,11 @@ namespace Codevolve.StyleDetect
             var sourceFile = manager.GetPsiFile(DaemonProcess.SourceFile, CSharpLanguage.Instance) as ICSharpFile;
             if (sourceFile != null)
             {
+                List<INamingConsistencyChecker> list =
+                    LanguageManager.Instance.GetServices<INamingConsistencyChecker>(sourceFile.Language).Where(x => x.IsApplicable(DaemonProcess.SourceFile)).ToList();
+
+                list.ForEach(Console.WriteLine);
+
                 var highlights = new List<HighlightingInfo>();
 
                 // highlight field declarations
