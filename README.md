@@ -5,7 +5,7 @@ StyleDetect
 
 *Not working yet* =)
 
-I plan to develop it mostly for VS2010. For now will try to not break the VS2008 compatibility completely though.
+I plan to develop it mostly for VS2010. *WILL* break the VS2008 compatibility completely because of .NET 4.0 requirements.
 
 Development setup
 -----------------
