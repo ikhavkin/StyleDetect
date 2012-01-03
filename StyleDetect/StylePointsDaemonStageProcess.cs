@@ -1,13 +1,19 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using JetBrains.DocumentModel;
 using JetBrains.ReSharper.Daemon;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp;
 using JetBrains.ReSharper.Psi.CSharp.Tree;
+using JetBrains.ReSharper.Psi.Naming;
+using JetBrains.ReSharper.Psi.Naming.Impl;
 using JetBrains.ReSharper.Psi.Naming.Interfaces;
+using JetBrains.ReSharper.Psi.Naming.Settings;
 using JetBrains.ReSharper.Psi.Tree;
+using JetBrains.ReSharper.Psi.Naming.Impl;
+using NLog;
 
 namespace Codevolve.StyleDetect
 {
@@ -16,6 +22,8 @@ namespace Codevolve.StyleDetect
     /// </summary>
     public class StylePointsDaemonStageProcess : IDaemonStageProcess
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
         /// <summary>
         /// Initializes a new instance of the <see cref="StylePointsDaemonStageProcess"/> class.
         /// </summary>
@@ -45,34 +53,28 @@ namespace Codevolve.StyleDetect
             var sourceFile = manager.GetPsiFile(DaemonProcess.SourceFile, CSharpLanguage.Instance) as ICSharpFile;
             if (sourceFile != null)
             {
-                List<INamingConsistencyChecker> list =
-                    LanguageManager.Instance.GetServices<INamingConsistencyChecker>(sourceFile.Language).Where(x => x.IsApplicable(DaemonProcess.SourceFile)).ToList();
+                // process declarations
 
-                list.ForEach(Console.WriteLine);
-
-                var highlights = new List<HighlightingInfo>();
-
-                // highlight field declarations
-                var processor = new RecursiveElementProcessor<IFieldDeclaration>(
+                var processor = new RecursiveElementProcessor<IDeclaration>(
                     declaration =>
                         {
-                            DocumentRange docRange = declaration.GetNameDocumentRange();
+                            IDeclaredElement element = declaration.DeclaredElement;
 
-                            highlights.Add(new HighlightingInfo(docRange, new NameInfoHighlighting(declaration)));
+                            logger.Trace("Processing a declaration {0}.", declaration.DeclaredName);
+
+                            PsiLanguageType languageType = element.PresentationLanguage;
+                            NamingManager namingManager = element.GetPsiServices().Naming;
+                            NameParser nameParser = namingManager.Parsing;
+                            var source = DaemonProcess.SourceFile;
+
+                            INamingPolicyProvider policyProvider = namingManager.Policy.GetPolicyProvider(languageType, source);
+                            NamingPolicy namingPolicy = GetNamingPolicy(element, source);
+                            Name name = nameParser.Parse(declaration.DeclaredName, namingPolicy.NamingRule, languageType, source);
+
+                            logger.Trace("Name: {0}, HasErrors: {1}", name, name.HasErrors);
+                            logger.Trace("Naming policy: {0}", namingPolicy);
                         });
                 sourceFile.ProcessDescendants(processor);
-
-                // highlight local var declarations
-                var localVarsProcessor = new RecursiveElementProcessor<ILocalVariableDeclaration>(
-                    declaration =>
-                        {
-                            DocumentRange docRange = declaration.GetNameDocumentRange();
-
-                            highlights.Add(new HighlightingInfo(docRange, new NameInfoHighlighting(declaration)));
-                        });
-                sourceFile.ProcessDescendants(localVarsProcessor);
-
-                commiter(new DaemonStageResult(highlights));
             }
         }
 
@@ -82,5 +84,29 @@ namespace Codevolve.StyleDetect
         public IDaemonProcess DaemonProcess { get; private set; }
 
         #endregion
+
+        /// <summary>
+        /// Returns naming policy for specified declared element.
+        /// </summary>
+        /// <param name="element">The declared element to look policy for.</param>
+        /// <param name="sourceFile">The source file.</param>
+        /// <returns>
+        /// Corresponding naming policy.
+        /// </returns>
+        private NamingPolicy GetNamingPolicy(IDeclaredElement element, IPsiSourceFile sourceFile)
+        {
+            PsiLanguageType languageType = element.PresentationLanguage;
+            NamingManager namingManager = element.GetPsiServices().Naming;
+            INamingPolicyProvider policyProvider = namingManager.Policy.GetPolicyProvider(languageType, sourceFile);
+            
+            NamingPolicy namingPolicy = policyProvider.GetPolicy(element);
+
+            if (namingPolicy.ExtraRules.Any())
+            {
+                logger.Trace("Extra rules are found!");
+            }
+
+            return namingPolicy;
+        }
     }
 }
